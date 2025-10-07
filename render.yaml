@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: systemphone
+    env: php
+    plan: free
+    buildCommand: |
+      composer install --no-dev --optimize-autoloader
+      # run frontend build only if package.json exists
+      if [ -f package.json ]; then
+        corepack enable
+        yarn install
+        yarn build
+      fi
+      php artisan config:cache
+      php artisan route:cache
+      php artisan view:cache
+    startCommand: php -S 0.0.0.0:$PORT -t public
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        sync: base64:EKAP7AEX47/BFOAenzuf8OmLpf1FjDtFzjvQKkeAQyw=
+      - key: APP_URL
+        value: https://systemphone.onrender.com
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        sync: dpg-d3fv0hc9c44c73dn4eeg-a
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_DATABASE
+        sync: db_zr8p
+      - key: DB_USERNAME
+        sync: db_zr8p_user
+      - key: DB_PASSWORD
+        sync: eksySDlbrmX4e2hAn8oVgaYCMux6AXib
+      - key: DB_SSLMODE
+        value: require
+      - key: CACHE_DRIVER
+        value: file
+      - key: SESSION_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
