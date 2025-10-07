@@ -21,7 +21,7 @@ services:
       - key: APP_DEBUG
         value: "false"
       - key: APP_KEY
-        sync: base64:EKAP7AEX47/BFOAenzuf8OmLpf1FjDtFzjvQKkeAQyw=
+        sync: EKAP7AEX47/BFOAenzuf8OmLpf1FjDtFzjvQKkeAQyw=
       - key: APP_URL
         value: https://systemphone.onrender.com
       - key: DB_CONNECTION
